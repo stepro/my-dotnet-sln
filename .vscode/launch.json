@@ -1,0 +1,58 @@
+{
+   "version": "0.2.0",
+   "configurations": [
+        {
+            "name": ".NET Core Launch (frontend)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "cwd": "${workspaceRoot}/frontend",
+            "program": "${workspaceRoot}/frontend/bin/Debug/netcoreapp2.0/frontend.dll",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Launch (backend)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "cwd": "${workspaceRoot}/backend",
+            "program": "${workspaceRoot}/backend/bin/Debug/netcoreapp2.0/backend.dll",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            }
+        }
+    ]
+}
