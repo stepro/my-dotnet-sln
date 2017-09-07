@@ -1,0 +1,38 @@
+docVersion: 1.0.0
+kind: service
+name: backend
+version: 0.1.0
+language: csharp
+labels:
+  vsce.io/dotnet-framework: netcoreapp2.0
+properties:
+  build:
+    context: ..
+    dockerfile: Dockerfile
+  public: true
+configurations:
+  develop:
+    build:
+      target: develop
+    env:
+      ASPNETCORE_ENVIRONMENT: Development
+    command: ["dotnet", "watch", "run"]
+    public: false
+    watch:
+      "*.*proj":
+        action: rebuild
+  develop.workspace: 
+    imports:
+      vsdbg: stephpr/vsdbg:15.1.10630.1@vsdbg:vsdbg
+    command: ["sleep", "infinity"]
+    tasks:
+      build:
+        command: ["dotnet", "build"]
+      test:
+        command: ["dotnet", "test"]
+      debug:
+        tty: false
+      run:
+        command: ["dotnet", "watch", "run"]
+  release:
+    sync: false

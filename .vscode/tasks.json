@@ -12,6 +12,78 @@
                 "build"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "vsce: up (frontend)",
+            "options": {
+                "cwd": "${workspaceRoot}/frontend"
+            },
+            "command": "vsce",
+            "windows": {
+                "command": "vsce.cmd"
+            },
+            "args": [
+                "-c",
+                "develop.workspace.vscode",
+                "up"
+            ],
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "taskName": "vsce: service exec -t build (frontend)",
+            "options": {
+                "cwd": "${workspaceRoot}/frontend"
+            },
+            "command": "vsce",
+            "windows": {
+                "command": "vsce.cmd"
+            },
+            "args": [
+                "-c",
+                "develop.workspace.vscode",
+                "service",
+                "exec",
+                "-t",
+                "build"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "vsce: up (backend)",
+            "options": {
+                "cwd": "${workspaceRoot}/backend"
+            },
+            "command": "vsce",
+            "windows": {
+                "command": "vsce.cmd"
+            },
+            "args": [
+                "-c",
+                "develop.workspace.vscode",
+                "up"
+            ],
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "taskName": "vsce: service exec -t build (backend)",
+            "options": {
+                "cwd": "${workspaceRoot}/backend"
+            },
+            "command": "vsce",
+            "windows": {
+                "command": "vsce.cmd"
+            },
+            "args": [
+                "-c",
+                "develop.workspace.vscode",
+                "service",
+                "exec",
+                "-t",
+                "build"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

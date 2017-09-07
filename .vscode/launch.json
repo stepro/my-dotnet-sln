@@ -53,6 +53,62 @@
                     "command": "xdg-open"
                 }
             }
+        },
+        {
+            "name": ".NET Core launch (frontend) (VSCE)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "vsce: service exec -t build (frontend)",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceRoot}/frontend",
+                "pipeProgram": "vsce",
+                "windows": {
+                    "pipeProgram": "vsce.cmd"
+                },
+                "pipeArgs": [
+                    "-c",
+                    "develop.workspace.vscode",
+                    "service",
+                    "exec",
+                    "-t",
+                    "debug"
+                ],
+                "quoteArgs": false,
+                "debuggerPath": "../../vsdbg/vsdbg"
+            },
+            "cwd": "/src/frontend",
+            "program": "/src/frontend/bin/Debug/netcoreapp2.0/frontend.dll",
+            "sourceFileMap": {
+                "/src": "${workspaceRoot}"
+            }
+        },
+        {
+            "name": ".NET Core launch (backend) (VSCE)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "vsce: service exec -t build (backend)",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceRoot}/backend",
+                "pipeProgram": "vsce",
+                "windows": {
+                    "pipeProgram": "vsce.cmd"
+                },
+                "pipeArgs": [
+                    "-c",
+                    "develop.workspace.vscode",
+                    "service",
+                    "exec",
+                    "-t",
+                    "debug"
+                ],
+                "quoteArgs": false,
+                "debuggerPath": "../../vsdbg/vsdbg"
+            },
+            "cwd": "/src/backend",
+            "program": "/src/backend/bin/Debug/netcoreapp2.0/backend.dll",
+            "sourceFileMap": {
+                "/src": "${workspaceRoot}"
+            }
         }
     ]
 }
