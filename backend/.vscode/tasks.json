@@ -1,0 +1,62 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        // Local tasks
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/backend.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // Mindaro tasks
+        {
+            // This is eventually done automatically by the extension
+            // The output will appear in a "Mindaro" output window
+            "label": "mindaro: daemon",
+            "type": "process",
+            "command": "mindaro",
+            "args": [
+                "daemon",
+                "--import",
+                "microsoft/vsdbg:<necessary version>@/vsdbg:/vsdbg"
+            ],
+            "problemMatcher": [],
+            "isBackground": true
+        },
+        {
+            // This runs the container as a host, enabling one-off commands
+            // It will only rebuild the image if *.sln or *.*proj have changed
+            "label": "mindaro: host",
+            "type": "process",
+            "command": "mindaro",
+            "args": [
+                "up",                // implies a container-owned primary process
+                "--host",            // implies "--unchecked" to disable probes
+                "--sync",
+                "*:!*.sln:!*.*proj", // extends/overrides files to synchronize
+                "--detach"           // daemon maintains local port connectivity
+            ],
+            "problemMatcher": []
+        },
+        {
+            // This is the Mindaro equivalent of the "build" task
+            "label": "build (mindaro)",
+            "dependsOn": "mindaro: host", // ensures hosting container is running
+            "type": "process",
+            "command": "mindaro",
+            "args": [
+                "exec",            // implies a client-owned secondary process
+                "--kill",
+                "dotnet",          // runs equivalent of "pkill -9 dotnet" before execution
+                "dotnet",
+                "build",
+                "backend.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
