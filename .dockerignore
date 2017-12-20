@@ -1,8 +1,14 @@
 .dockerignore
 .git
 .gitignore
+.vs
 .vscode
+**/.secrets.yaml
+**/.vs
+**/.vscode
 **/bin
+**/charts
 **/Dockerfile
+**/Dockerfile.develop
+**/mindaro.yaml
 **/obj
-**/vsce.yaml

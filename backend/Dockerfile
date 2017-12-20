@@ -1,19 +1,20 @@
-FROM microsoft/aspnetcore-build:2 AS develop
+FROM microsoft/aspnetcore:2 AS base
 EXPOSE 80
+WORKDIR /app
+
+FROM microsoft/aspnetcore-build:2 AS build
 WORKDIR /src
-COPY *.sln ./
-COPY sharedlib/*.csproj sharedlib/
-COPY backend/*.csproj backend/
-RUN dotnet restore
+COPY my-dotnet-sln.sln .
+COPY backend/backend.csproj backend/
+COPY sharedlib/sharedlib.csproj sharedlib/
+RUN dotnet restore backend/backend.csproj
 COPY . .
 WORKDIR backend
 
-FROM develop AS publish
+FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish -c $BUILD_CONFIGURATION -o /app
+RUN dotnet publish --no-restore -c $BUILD_CONFIGURATION -o /app
 
-FROM microsoft/aspnetcore:2 AS release
-EXPOSE 80
-WORKDIR /app
+FROM base AS release
 COPY --from=publish /app .
 CMD ["dotnet", "backend.dll"]

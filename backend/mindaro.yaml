@@ -1,0 +1,24 @@
+kind: helm-release
+build:
+  context: ..
+  dockerfile: Dockerfile
+container:
+  httpPorts: ["*"]
+install:
+  chart: charts/backend
+  values:
+  - .secrets.yaml?
+  set:
+    image:
+      repository: $(repository)
+      tag: $(tag)
+      pullPolicy: Never
+configurations:
+  develop:
+    build:
+      dockerfile: Dockerfile.develop
+      useGitIgnore: true
+    container:
+      sync:
+      - Views
+      - wwwroot

@@ -1,0 +1,14 @@
+FROM microsoft/aspnetcore-build:2
+ENV ASPNETCORE_ENVIRONMENT=Development
+EXPOSE 80
+
+WORKDIR /src
+COPY my-dotnet-sln.sln .
+COPY frontend/frontend.csproj frontend/
+COPY sharedlib/sharedlib.csproj sharedlib/
+RUN dotnet restore frontend/frontend.csproj
+COPY . .
+WORKDIR frontend
+RUN dotnet build
+
+CMD ["dotnet", "run", "--no-restore", "--no-build", "--no-launch-profile"]
