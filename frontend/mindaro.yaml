@@ -10,7 +10,6 @@ install:
   - .secrets.yaml?
   set:
     image:
-      repository: $(repository)
       tag: $(tag)
       pullPolicy: Never
 configurations:
